@@ -2,7 +2,9 @@ import boto3
 import json
 
 AWS_REGION="us-east-1"
-MODEL="anthropic.claude-3-haiku-20240307-v1:0"
+ANTHROPIC_VERSION="bedrock-2023-05-31"
+ANTHROPIC_MODEL="anthropic.claude-3-haiku-20240307-v1:0"
+MAX_TOKENS=1000
 
 def get_claude_response(prompt):
 
@@ -14,8 +16,8 @@ def get_claude_response(prompt):
 
     # Prepare the request body
     body = {
-        "anthropic_version": "bedrock-2023-05-31",
-        "max_tokens": 1000,
+        "anthropic_version": ANTHROPIC_VERSION,
+        "max_tokens": MAX_TOKENS,
         "messages": [
             {
                 "role": "user",
@@ -27,7 +29,7 @@ def get_claude_response(prompt):
     try:
         # Make the API call
         response = bedrock.invoke_model(
-            modelId=MODEL,
+            modelId=ANTHROPIC_MODEL,
             body=json.dumps(body)
         )
 
